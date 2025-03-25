@@ -15,6 +15,7 @@ if [ -z "$frontend_files" ]; then
 fi
 
 echo "Running frontend pre-commit hook..."
+echo "$frontend_files"
 
 # Переходим во фронтенд-папку (если ещё не в ней)
 if [[ "$(git rev-parse --show-prefix)" != "frontend/" ]]; then
