@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "[ -d .git-hooks ] && git config core.hooksPath .git-hooks || echo 'Error: .git-hooks directory not found'"
+    "prepare": "[ -d .git-hooks ] && git config core.hooksPath .git-hooks || echo 'Error: .git-hooks directory not found'",
+    "pretty": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
