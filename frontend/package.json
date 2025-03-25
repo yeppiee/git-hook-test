@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "[ -d .git-hooks ] && git config core.hooksPath .git-hooks || echo 'Error: .git-hooks directory not found'",
+    "prepare": "[ -d frontend/.git-hooks ] && git config core.hooksPath frontend/.git-hooks || echo 'Error: frontend/.git-hooks directory not found'",
     "pretty": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
