@@ -7,10 +7,9 @@ changed_files=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |
 frontend_files=$(echo "$changed_files" | grep '^frontend/' | sed 's/^frontend\///')
 
 # Если нет изменённых файлов из frontend/ — пропускаем хук
-# if [ -z "$frontend_files" ]; then
-#     echo "No frontend files changed. Skipping frontend pre-commit hook."
-#     exit 0
-# fi
+if [ -z "$frontend_files" ]; then
+    exit 0
+fi
 
 echo "Running frontend pre-commit hook..."
 echo "$frontend_files"
