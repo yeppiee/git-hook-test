@@ -43,6 +43,12 @@
       "options": {
         "parser":"html"
       }
+    },
+    {
+      "files": "*.md",
+      "options": {
+        "parser":"markdown"
+      }
     }
   ]
 }
