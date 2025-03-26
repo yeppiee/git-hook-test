@@ -3,4 +3,3 @@ test git hook in monorepo
 test
 test2
 test3
-test4
