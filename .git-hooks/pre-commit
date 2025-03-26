@@ -15,8 +15,10 @@ fi
 echo "Running frontend pre-commit hook..."
 echo "$frontend_files"
 
+cd frontend || exit
+
 # Prettify all selected files
-echo "$frontend_files" | xargs ./frontend/node_modules/.bin/prettier --ignore-unknown --write
+echo "$frontend_files" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Add back the modified/prettified files to staging
 echo "$frontend_files" | xargs git add
