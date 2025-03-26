@@ -17,11 +17,16 @@ echo "$frontend_files"
 
 cd frontend || exit
 
+frontend_src_files=$(echo "$changed_files" | grep '^frontend/src/')
+#frontend_src_files=$(echo "$changed_files" | grep -E '^frontend/src/.*\.(js|jsx|ts|tsx|css|scss|json|md)$')
+
+echo "$frontend_src_files"
+
 # Prettify all selected files
-echo "$frontend_files" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
+echo "$frontend_src_files" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Add back the modified/prettified files to staging
-echo "$frontend_files" | xargs git add
+echo "$frontend_src_files" | xargs git add
 
 exit 0
 
