@@ -7,17 +7,16 @@ changed_files=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |
 frontend_files=$(echo "$changed_files" | grep '^frontend/' | sed 's/^frontend\///')
 
 # Если нет изменённых файлов из frontend/ — пропускаем хук
-if [ -z "$frontend_files" ]; then
-    echo "No frontend files changed. Skipping frontend pre-commit hook."
-    exit 0
-fi
+# if [ -z "$frontend_files" ]; then
+#     echo "No frontend files changed. Skipping frontend pre-commit hook."
+#     exit 0
+# fi
 
 echo "Running frontend pre-commit hook..."
 echo "$frontend_files"
 
-cd frontend || exit
-
-#frontend_src_files=$(echo "$changed_files" | grep -E '^frontend/src/.*\.(js|jsx|ts|tsx|css|scss|json|md)$')
+# Переходим в frontend/, если работаем в root directory
+cd frontend
 
 # Prettify all selected files
 echo "$frontend_files" | grep -E '\.(html|js|jsx|ts|tsx|css|scss|json|md)$' | xargs ./node_modules/.bin/prettier --ignore-unknown --write
