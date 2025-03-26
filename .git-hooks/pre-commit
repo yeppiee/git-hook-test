@@ -15,7 +15,7 @@ fi
 echo "Running frontend pre-commit hook..."
 echo "$frontend_files"
 
-# cd frontend || exit
+cd frontend || exit
 
 #frontend_src_files=$(echo "$changed_files" | grep -E '^frontend/src/.*\.(js|jsx|ts|tsx|css|scss|json|md)$')
 
