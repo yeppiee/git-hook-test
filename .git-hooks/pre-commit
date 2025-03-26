@@ -7,17 +7,22 @@ changed_files=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |
 frontend_files=$(echo "$changed_files" | grep '^frontend/' | sed 's/^frontend\///')
 
 # Если нет изменённых файлов из frontend/ — пропускаем хук
-if [ -z "$frontend_files" ]; then
-    exit 0
-fi
+[ -z "$frontend_files" ] && exit 0
 
 # Переходим в frontend/
 cd frontend
 
 # Запускаем prettier для файлов из frontend/
-echo "$frontend_files" | grep -E '\.(html|js|jsx|ts|tsx|css|scss|json)$' | xargs ./node_modules/.bin/prettier --write
+echo "$frontend_files" | grep -E '\.(html|js|jsx|ts|tsx|css|scss|json|md)$' | xargs ./node_modules/.bin/prettier --ignore-unknown --write
+
+# Если prettier не смог отформатировать какие-то файлы, завершаем с ошибкой
+if [ $? -ne 0 ]; then
+  echo "❌ Prettier не смог отформатировать какие-то файлы, проверьте расширения файлов. Доступные расширения: html|js|jsx|ts|tsx|css|scss|json|md"
+  exit 1
+fi
 
 # Индексируем изменённые файлы из frontend/
 echo "$frontend_files" | xargs git add
 
+# Завершаем успешно
 exit 0
