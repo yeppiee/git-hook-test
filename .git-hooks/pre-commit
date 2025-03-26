@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Получаем список изменённых файлов
-changed_files=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') && exit 0
+changed_files=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 
 # Проверяем, есть ли среди них файлы из frontend/
 frontend_files=$(echo "$changed_files" | grep '^frontend/' | sed 's/^frontend\///')
