@@ -11,9 +11,6 @@ if [ -z "$frontend_files" ]; then
     exit 0
 fi
 
-echo "Running frontend pre-commit hook..."
-echo "$frontend_files"
-
 # Переходим в frontend/, если работаем в root directory
 cd frontend
 
@@ -24,17 +21,3 @@ echo "$frontend_files" | grep -E '\.(html|js|jsx|ts|tsx|css|scss|json|md)$' | xa
 echo "$frontend_files" | xargs git add
 
 exit 0
-
-
-#----------------
-
-# FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
-# [ -z "$FILES" ] && exit 0
-
-# # Prettify all selected files
-# echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
-
-# # Add back the modified/prettified files to staging
-# echo "$FILES" | xargs git add
-
-# exit 0
