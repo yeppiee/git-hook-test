@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Получаем список изменённых файлов
-changed_files=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
+changed_files=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') && exit 0
 
 # Проверяем, есть ли среди них файлы из frontend/
 frontend_files=$(echo "$changed_files" | grep '^frontend/' | sed 's/^frontend\///')
@@ -18,8 +18,6 @@ echo "$frontend_files"
 # cd frontend || exit
 
 #frontend_src_files=$(echo "$changed_files" | grep -E '^frontend/src/.*\.(js|jsx|ts|tsx|css|scss|json|md)$')
-
-echo "$frontend_files"
 
 # Prettify all selected files
 echo "$frontend_files" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
