@@ -6,8 +6,6 @@ changed_files=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |
 # Проверяем, есть ли среди них файлы из frontend/
 frontend_files=$(echo "$changed_files" | grep '^frontend/')
 
-echo "|$(pwd -P)|"
-
 # Если нет изменённых файлов из frontend/ — пропускаем хук
 if [ -z "$frontend_files" ]; then
     echo "No frontend files changed. Skipping frontend pre-commit hook."
@@ -17,22 +15,8 @@ fi
 echo "Running frontend pre-commit hook..."
 echo "$frontend_files"
 
-# Переходим во фронтенд-папку (если ещё не в ней)
-if [[ "$(git rev-parse --show-prefix)" != "frontend/" ]]; then
-    echo "|$(git rev-parse --show-prefix)|"
-    echo "inside condition"
-    cd frontend || exit 1
-    # Prettify all selected files
-    echo "$frontend_files" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
-    # Add back the modified/prettified files to staging
-    echo "$frontend_files" | xargs git add
-    # Возвращаемся в исходную директорию
-    cd -
-    exit 0
-fi
-
 # Prettify all selected files
-echo "$frontend_files" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
+echo "$frontend_files" | xargs ./frontend/node_modules/.bin/prettier --ignore-unknown
 
 # Add back the modified/prettified files to staging
 echo "$frontend_files" | xargs git add
