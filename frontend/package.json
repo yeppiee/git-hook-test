@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "prepare": "[ -d ../.git-hooks ] && git config core.hooksPath .git-hooks || echo 'Error: .git-hooks directory not found'",
-    "pretty": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
+    "pretty": "prettier --write \"src/**/*.{html,js,jsx,ts,tsx,css,scss,json,md}\""
   },
   "dependencies": {
     "react": "^19.0.0",
