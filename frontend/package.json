@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "[ -d ../.git-hooks ] && git config core.hooksPath .git-hooks || echo 'Error: The .git-hooks directory is not found, commits will not be processed by prettier'",
+    "prepare": "node -e \"const fs = require('fs'); fs.existsSync('../.git-hooks') || (console.log('Error: The .git-hooks directory is not found, commits will not be processed by prettier'), process.exit(1))\" && git config core.hooksPath .git-hooks",
     "pretty": "prettier --write \"src/**/*.{html,js,jsx,ts,tsx,css,scss,json,md}\""
   },
   "dependencies": {
