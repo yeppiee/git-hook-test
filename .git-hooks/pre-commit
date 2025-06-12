@@ -1,5 +1,15 @@
 #!/bin/sh
 
+conflict_files=$(grep -Fxf <(git diff --name-only --cached) <(git diff --name-only))
+
+if [ -n "$conflict_files" ]; then
+  echo "❌ Конфликт: Следующие файлы имеют и staged, и unstaged изменения:"
+  echo "$conflict_files"
+  echo ""
+  echo "Либо добавьте эти файлы в staged, либо уберите их из staged"
+  exit 1
+fi
+
 # Получаем список изменённых файлов
 changed_files=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 
