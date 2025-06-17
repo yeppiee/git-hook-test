@@ -27,7 +27,7 @@ echo "$frontend_files" | grep -E '\.(html|js|jsx|ts|tsx|css|scss|json|md)$' | xa
 
 # Если prettier не смог отформатировать какие-то файлы, завершаем с ошибкой
 if [ $? -ne 0 ]; then
-  echo "❌ Prettier не смог отформатировать какие-то файлы, проверьте расширения файлов. Доступные расширения: html|js|jsx|ts|tsx|css|scss|json|md"
+  echo "❌ Prettier не смог отформатировать какие-то файлы, проверьте расширения файлов или наличие синтаксических ошибок в файлах. Доступные расширения: html|js|jsx|ts|tsx|css|scss|json|md"
   exit 1
 fi
 
