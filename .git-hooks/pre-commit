@@ -1,7 +1,16 @@
 #!/bin/sh
 
-# Проверяем, есть ли среди файлов в staged те же файлы в unstaged
-conflict_files=$(grep -Fxf <(git diff --name-only --cached) <(git diff --name-only))
+# Получаем список изменённых файлов в staged
+staged_files=$(git diff --name-only --cached)
+
+# Проверяем, есть ли среди них файлы из frontend/
+frontend_staged_files=$(echo "$staged_files" | grep '^frontend/')
+
+# Если нет изменённых файлов из frontend/ в staged — пропускаем проверку конфликтов
+[ -z "$frontend_staged_files" ] && exit 0
+
+# Проверяем, есть ли среди файлов в staged те же файлы в unstaged (только для frontend/)
+conflict_files=$(grep -Fxf <(echo "$frontend_staged_files") <(git diff --name-only | grep '^frontend/'))
 
 if [ -n "$conflict_files" ]; then
   echo "❌ Конфликт: Следующие файлы имеют staged и unstaged изменения:"
@@ -11,14 +20,11 @@ if [ -n "$conflict_files" ]; then
   exit 1
 fi
 
-# Получаем список изменённых файлов
+# Получаем список всех изменённых файлов в staged
 changed_files=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
 
-# Проверяем, есть ли среди них файлы из frontend/
+# Снова получаем список frontend-файлов (может отличаться от начального)
 frontend_files=$(echo "$changed_files" | grep '^frontend/' | sed 's/^frontend\///')
-
-# Если нет изменённых файлов из frontend/ — пропускаем хук
-[ -z "$frontend_files" ] && exit 0
 
 # Переходим в frontend/
 cd frontend
